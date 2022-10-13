@@ -41,13 +41,22 @@ extern "C"
 // implementation. It may need to be increased in the future.
 #define RMW_GID_STORAGE_SIZE 24u
 
-/// ROS graph ID of the topic
+/// Globally unique identifier for a ROS graph entity
+/**
+ * This is expected to be globally unique within a ROS domain.
+ * The identifier should be the same when reported both locally (where the entity was created)
+ * and on remote hosts or processes.
+ */
 typedef struct RMW_PUBLIC_TYPE rmw_gid_s
 {
   /// Name of the rmw implementation
   const char * implementation_identifier;
 
-  /// Bype data Gid value
+  /// Byte data GID value
+  /**
+   * If the GID from the middleware is smaller than RMW_GID_STORAGE_SIZE, any bytes not used
+   * should be set to zero.
+   */
   uint8_t data[RMW_GID_STORAGE_SIZE];
 } rmw_gid_t;
 
