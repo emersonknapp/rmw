@@ -41,6 +41,16 @@ extern "C"
 // implementation. It may need to be increased in the future.
 #define RMW_GID_STORAGE_SIZE 24u
 
+/// ROS graph ID of the topic
+typedef struct RMW_PUBLIC_TYPE rmw_gid_s
+{
+  /// Name of the rmw implementation
+  const char * implementation_identifier;
+
+  /// Bype data Gid value
+  uint8_t data[RMW_GID_STORAGE_SIZE];
+} rmw_gid_t;
+
 /// Structure which encapsulates an rmw node
 typedef struct RMW_PUBLIC_TYPE rmw_node_s
 {
@@ -355,8 +365,8 @@ typedef struct RMW_PUBLIC_TYPE rmw_wait_set_s
 /// An rmw service request identifier
 typedef struct RMW_PUBLIC_TYPE rmw_request_id_s
 {
-  /// The guid of the writer associated with this request
-  int8_t writer_guid[16];
+  /// The globally unique identifier of the client writer associated with this request
+  rmw_gid_t client_gid;
 
   /// Sequence number of this service
   int64_t sequence_number;
@@ -615,16 +625,6 @@ typedef struct RMW_PUBLIC_TYPE rmw_qos_profile_s
    */
   bool avoid_ros_namespace_conventions;
 } rmw_qos_profile_t;
-
-/// ROS graph ID of the topic
-typedef struct RMW_PUBLIC_TYPE rmw_gid_s
-{
-  /// Name of the rmw implementation
-  const char * implementation_identifier;
-
-  /// Bype data Gid value
-  uint8_t data[RMW_GID_STORAGE_SIZE];
-} rmw_gid_t;
 
 #define RMW_MESSAGE_INFO_SEQUENCE_NUMBER_UNSUPPORTED UINT64_MAX
 
